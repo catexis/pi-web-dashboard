@@ -1,0 +1,6 @@
+.vscode
+static_web
+
+db.sqlite3
+
+*.pyc
