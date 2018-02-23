@@ -15,7 +15,9 @@
                         <strong class="card-title">Температура ЦП</strong>
                     </div>
                     <div class="card-body">
-                        <p class="card-text">Виджет отображения температуры процессора</p>
+                        <p class="card-text">
+                            <canvas id="cpTemp"></canvas>
+                        </p>
                     </div>
                 </div>
             </div>
@@ -25,7 +27,9 @@
                         <strong class="card-title">Дисковое пространство</strong>
                     </div>
                     <div class="card-body">
-                        <p class="card-text">Виджет отображения свободного места</p>
+                        <p class="card-text">
+                            <canvas id="diskSpase"></canvas>
+                        </p>
                     </div>
                 </div>
             </div>
@@ -35,7 +39,38 @@
                         <strong class="card-title">RAM</strong>
                     </div>
                     <div class="card-body">
-                        <p class="card-text">Виджет отображения свободной оперативной памяти</p>
+                        <p class="card-text">
+                            <canvas id="ramUse"></canvas>
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header">
+                        <strong class="card-title">Полезная информация</strong>
+                    </div>
+                    <div class="card-body">
+                        <p class="card-text">
+                            <table class="table">
+                                <tr>
+                                    <td>Ext. ip</td>
+                                    <td>127.0.0.1</td>
+                                </tr>
+                                <tr>
+                                    <td>Computer</td>
+                                    <td>
+                                        <span class="badge badge-secondary">Off</span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Uptime</td>
+                                    <td>
+                                        5:00:03.0987
+                                    </td>
+                                </tr>
+                            </table>
+                        </p>
                     </div>
                 </div>
             </div>
@@ -48,5 +83,92 @@
 
 {% block js %}
     <!--  Chart js -->
-    <script src="{% static 'assets/js/chart.min.js' %}"></script>
+    <script src="{% static 'assets\js\chartjs.min.js' %}"></script>
+    <script>
+
+        // Disk space chart
+        var ds = document.getElementById('diskSpase').getContext('2d');
+        var dsPieChart = new Chart(ds,{
+            type: 'pie',
+            data: {
+                datasets: [{
+                        data: [75, 25],
+                        backgroundColor: [
+                            'rgba(0, 123, 255,0.9)',
+                            'rgba(255, 153, 102,0.7)'
+                        ]
+                    }],
+                labels: ['Free','Used'],
+                },
+            options: {
+                    responsive: true
+                },
+        });
+
+
+        // Temperature of processor
+        var cpt = document.getElementById('cpTemp').getContext('2d');
+        var cptLineChart = new Chart(cpt,{
+            type: 'line',
+            data: {
+                labels: [ "2010", "2011", "2012", "2013", "2014", "2015", "2016" ],
+                datasets: [{
+                    label: "Температура ЦП",
+                    backgroundColor: 'transparent',
+                    borderColor: 'rgba(220,53,69,0.75)',
+                    data: [ 0, 30, 10, 120, 50, 63, 10 ],
+                    pointStyle: 'circle',
+                    pointRadius: 5,
+                    pointBackgroundColor: 'rgba(220,53,69,0.75)',
+                    }],
+            },
+            options: {
+                responsive: true,
+                tooltips: {
+                    mode: 'index',
+                    intersect: false,
+                },
+                hover: {
+                    mode: 'nearest',
+                    intersect: true
+                },
+                scales: {
+                    xAxes: [{
+                        display: true,
+                        scaleLabel: {
+                            display: true,
+                            labelString: 'Time'
+                        }
+                    }],
+                    yAxes: [{
+                        display: true,
+                        scaleLabel: {
+                            display: true,
+                            labelString: 'Temperature'
+                        }
+                    }]
+                }
+            }
+        });
+
+        // RAM chart
+        var ramUse = document.getElementById('ramUse').getContext('2d');
+        var ramDoughnutChart = new Chart(ramUse, {
+            type: 'doughnut',
+            data: {
+                datasets: [{
+                        data: [75, 25],
+                        backgroundColor: [
+                            'rgba(0, 123, 255,0.9)',
+                            'rgba(255, 153, 102,0.7)'
+                        ]
+                    }],
+                labels: ['Free','Used'],
+                },
+            options: {
+                    responsive: true
+                },
+        });
+
+    </script>
 {% endblock %}
