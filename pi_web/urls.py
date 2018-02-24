@@ -24,4 +24,5 @@ from django.conf.urls.static import static
 urlpatterns = [
     path('admin/', admin.site.urls),
     url("^$", views.DashboardIndex.as_view(), name="dashboard_index"),
+    url("^index/data$", views.IndexJSONData.as_view(), name="index_json"),
 ]

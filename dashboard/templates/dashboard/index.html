@@ -82,6 +82,8 @@
 {% endblock %}
 
 {% block js %}
+    <script src="{% static 'assets/js/jquery-3.3.1.min.js' %}"></script>
+
     <!--  Chart js -->
     <script src="{% static 'assets\js\chartjs.min.js' %}"></script>
     <script>
@@ -169,6 +171,18 @@
                     responsive: true
                 },
         });
+
+        // http://www.chartjs.org/docs/latest/developers/updates.html
+        // Обновляем графики
+        $(function(){
+            refresh();
+        });
+        function refresh(){
+            $.getJSON('index/data', function(data){
+                console.log(data.my_key);
+                //setTimeout(refresh, 5000);
+            });
+        }
 
     </script>
 {% endblock %}
