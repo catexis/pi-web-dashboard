@@ -39,9 +39,27 @@
                         <strong class="card-title">RAM</strong>
                     </div>
                     <div class="card-body">
-                        <p class="card-text">
+                        <!-- <p class="card-text"> -->
+                        <div class="col-md-9">
                             <canvas id="ramUse"></canvas>
-                        </p>
+                        </div>
+                        <div class="col-md-3">
+                            <table class="table" style="text-align:center;">
+                                <tr>
+                                    <td><b>Used</b></td>
+                                </tr>
+                                <tr>
+                                    <td id="ram_used">000.0</td>
+                                </tr>
+                                <tr>
+                                    <td><b>Free</b></td>
+                                </tr>
+                                <tr>
+                                    <td id="ram_free">000.0</td>
+                                </tr>
+                            </table>
+                        </div>
+                        <!-- </p> -->
                     </div>
                 </div>
             </div>
@@ -114,22 +132,12 @@
         var cptLineChart = new Chart(cpt,{
             type: 'line',
             data: {
-                labels: [ "0", "0", "0", "0", "0",
-                          "0", "0", "0", "0", "0",
-                          "0", "0", "0", "0", "0",
-                          "0", "0", "0", "0", "0",
-                          "0", "0", "0", "0", "0"],
+                labels: ["0"],
                 datasets: [{
                     label: "Температура ЦП",
                     backgroundColor: 'transparent',
                     borderColor: 'rgba(220,53,69,0.75)',
-                    data: [ 
-                        0, 0, 0, 0, 0, 
-                        0, 0, 0, 0, 0, 
-                        0, 0, 0, 0, 0, 
-                        0, 0, 0, 0, 0, 
-                        0, 0, 0, 0, 0
-                     ],
+                    data: [0],
                     pointStyle: 'circle',
                     pointRadius: 5,
                     pointBackgroundColor: 'rgba(220,53,69,0.75)',
@@ -179,38 +187,23 @@
                 labels: ['Free','Used'],
                 },
             options: {
-                    responsive: true
+                    responsive: true,
+                    animation: false,
                 },
         });
 
-        // http://www.chartjs.org/docs/latest/developers/updates.html
-        // Обновляем графики
-        // $(function(){
-        //     refresh();
-        // });
-        // function refresh(){
-        //     $.getJSON('index/data', function(data){
-        //         console.log(data.my_key);
-        //         //setTimeout(refresh, 5000);
-        //     });
-        // }
-
-        // setTimeout(function() {
-        // setInterval(function() {
-        //     addData(cptLineChart, [45, 50, 30, 34, 61, 53, 42], 0);
-        //     }, 2000);
-
-        // function addData(chart, data, datasetIndex) {
-        //     chart.data.datasets[datasetIndex].data = data;
-        //     chart.update();
-        //     };
-        
-        setTimeout(function(){
-            $.getJSON('index/data', function(data){
-                console.log(data.used_ram);
-                // console.log(cptLineChart);
-            });
-            2500});
+        $(document).ready(function(){  // При загрузке документа
+            setInterval(function(){  // Запускам периодически исполняемую функцию
+                // Тело функции, которая буде периодически повторяться
+                $.getJSON('index/ram', function(data){
+                    ramDoughnutChart.data.datasets[0].data.splice(0,2);
+                    ramDoughnutChart.data.datasets[0].data.push(data.free_ram, data.used_ram);
+                    ramDoughnutChart.update();
+                    $("#ram_used").text(data.used_ram);
+                    $("#ram_free").text(data.free_ram);
+                });
+            }, 1000);  // Интервал
+        });
 
     </script>
 {% endblock %}

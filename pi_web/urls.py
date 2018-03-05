@@ -25,5 +25,11 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     url("^$", views.DashboardIndex.as_view(), name="dashboard_index"),
     url("^index/data$", views.IndexJSONData.as_view(), name="index_json"),
+    
+    # For json data from server
+    url("^index/ram$", views.IndexJsonRam.as_view(), name="index_ram"),
+    # url("^index/disk$", views.IndexJsonDisk.as_view(), name="index_disk"),
+    # url("^index/temp$", views.IndexJsonTemp.as_view(), name="index_temp"),
+    
     url("^test$", views.TestPage.as_view(), name="test"),
 ]

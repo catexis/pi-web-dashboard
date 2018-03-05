@@ -14,7 +14,6 @@ class TestPage(TemplateView):
 
 
 # Index page refresh data as JSON
-# RAM, temp
 class IndexJSONData(View):
     def get(self, *args, **kwargs):
         jsonData = {}
@@ -29,4 +28,14 @@ class IndexJSONData(View):
         jsonData['used_ram'] = used_ram
         jsonData['free_ram'] = free_ram
 
+        return HttpResponse(json.dumps(jsonData))
+
+# RAM
+class IndexJsonRam(View):
+    def get(self, *args, **kwargs):
+        jsonData = {}
+        used_ram = round(psutil.virtual_memory().used / 1024 / 1024, 1)
+        free_ram = round(psutil.virtual_memory().free / 1024 / 1024, 1)
+        jsonData['used_ram'] = used_ram
+        jsonData['free_ram'] = free_ram
         return HttpResponse(json.dumps(jsonData))
