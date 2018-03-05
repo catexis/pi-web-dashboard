@@ -195,12 +195,23 @@
         $(document).ready(function(){  // При загрузке документа
             setInterval(function(){  // Запускам периодически исполняемую функцию
                 // Тело функции, которая буде периодически повторяться
+                // RAM
                 $.getJSON('index/ram', function(data){
                     ramDoughnutChart.data.datasets[0].data.splice(0,2);
                     ramDoughnutChart.data.datasets[0].data.push(data.free_ram, data.used_ram);
                     ramDoughnutChart.update();
                     $("#ram_used").text(data.used_ram);
                     $("#ram_free").text(data.free_ram);
+                });
+                // Temp
+                $.getJSON('index/temp', function(data){
+                    if(cpt.data.labels.length > 15){
+                        cpt.data.labels.splice(0,1);
+                        cpt.data.datasets[0].data.splice(0,1);
+                    }
+                    cpt.data.labels.push(data.time);
+                    cpt.data.datasets[0].data.push(data.temp);
+                    cpt.update();
                 });
             }, 1000);  // Интервал
         });

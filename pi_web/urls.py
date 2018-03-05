@@ -29,7 +29,7 @@ urlpatterns = [
     # For json data from server
     url("^index/ram$", views.IndexJsonRam.as_view(), name="index_ram"),
     # url("^index/disk$", views.IndexJsonDisk.as_view(), name="index_disk"),
-    # url("^index/temp$", views.IndexJsonTemp.as_view(), name="index_temp"),
+    url("^index/temp$", views.IndexJsonTemp.as_view(), name="index_temp"),
     
     url("^test$", views.TestPage.as_view(), name="test"),
 ]

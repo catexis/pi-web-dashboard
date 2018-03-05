@@ -1,6 +1,7 @@
 from django.views.generic import TemplateView, View
 from django.http import HttpResponse
 from subprocess import Popen, PIPE
+from datetime import datetime
 import json
 import psutil
 
@@ -38,4 +39,13 @@ class IndexJsonRam(View):
         free_ram = round(psutil.virtual_memory().available / 1024 / 1024, 1)
         jsonData['used_ram'] = used_ram
         jsonData['free_ram'] = free_ram
+        return HttpResponse(json.dumps(jsonData))
+
+# Temp
+class IndexJsonTemp(View):
+    def get(self, *args, **kwargs):
+        jsonData = {}
+        temp = Popen('vcgencmd measure_temp', shell=True, stdin=PIPE, stdout=PIPE).stdout.read().decode('utf-8')[5:9]
+        jsonData['temp'] = temp
+        jsonData['time'] = datetime.now().strftime("%H:%M:%S")
         return HttpResponse(json.dumps(jsonData))
