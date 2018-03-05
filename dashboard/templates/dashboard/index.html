@@ -205,13 +205,13 @@
                 });
                 // Temp
                 $.getJSON('index/temp', function(data){
-                    if(cpt.data.labels.length > 15){
-                        cpt.data.labels.splice(0,1);
-                        cpt.data.datasets[0].data.splice(0,1);
+                    if(cptLineChart.data.labels.length > 15){
+                        cptLineChart.data.labels.splice(0,1);
+                        cptLineChart.data.datasets[0].data.splice(0,1);
                     }
-                    cpt.data.labels.push(data.time);
-                    cpt.data.datasets[0].data.push(data.temp);
-                    cpt.update();
+                    cptLineChart.data.labels.push(data.time);
+                    cptLineChart.data.datasets[0].data.push(data.temp);
+                    cptLineChart.update();
                 });
             }, 1000);  // Интервал
         });
