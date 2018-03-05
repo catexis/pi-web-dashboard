@@ -1,7 +1,7 @@
 from django.views.generic import TemplateView, View
 from django.http import HttpResponse
 from subprocess import Popen, PIPE
-from datetime import datetime
+from datetime import datetime, timedelta
 import json
 import psutil
 
