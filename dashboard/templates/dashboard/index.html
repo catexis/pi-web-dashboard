@@ -110,15 +110,26 @@
 
         // Temperature of processor
         var cpt = document.getElementById('cpTemp').getContext('2d');
+        var count_cpt = 25
         var cptLineChart = new Chart(cpt,{
             type: 'line',
             data: {
-                labels: [ "2010", "2011", "2012", "2013", "2014", "2015", "2016" ],
+                labels: [ "0", "0", "0", "0", "0",
+                          "0", "0", "0", "0", "0",
+                          "0", "0", "0", "0", "0",
+                          "0", "0", "0", "0", "0",
+                          "0", "0", "0", "0", "0"],
                 datasets: [{
                     label: "Температура ЦП",
                     backgroundColor: 'transparent',
                     borderColor: 'rgba(220,53,69,0.75)',
-                    data: [ 0, 30, 10, 120, 50, 63, 10 ],
+                    data: [ 
+                        0, 0, 0, 0, 0, 
+                        0, 0, 0, 0, 0, 
+                        0, 0, 0, 0, 0, 
+                        0, 0, 0, 0, 0, 
+                        0, 0, 0, 0, 0
+                     ],
                     pointStyle: 'circle',
                     pointRadius: 5,
                     pointBackgroundColor: 'rgba(220,53,69,0.75)',
@@ -174,15 +185,32 @@
 
         // http://www.chartjs.org/docs/latest/developers/updates.html
         // Обновляем графики
-        $(function(){
-            refresh();
-        });
-        function refresh(){
+        // $(function(){
+        //     refresh();
+        // });
+        // function refresh(){
+        //     $.getJSON('index/data', function(data){
+        //         console.log(data.my_key);
+        //         //setTimeout(refresh, 5000);
+        //     });
+        // }
+
+        // setTimeout(function() {
+        // setInterval(function() {
+        //     addData(cptLineChart, [45, 50, 30, 34, 61, 53, 42], 0);
+        //     }, 2000);
+
+        // function addData(chart, data, datasetIndex) {
+        //     chart.data.datasets[datasetIndex].data = data;
+        //     chart.update();
+        //     };
+        
+        setTimeout(function(){
             $.getJSON('index/data', function(data){
-                console.log(data.my_key);
-                //setTimeout(refresh, 5000);
+                console.log(data.used_ram);
+                // console.log(cptLineChart);
             });
-        }
+            2500});
 
     </script>
 {% endblock %}

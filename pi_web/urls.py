@@ -25,4 +25,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     url("^$", views.DashboardIndex.as_view(), name="dashboard_index"),
     url("^index/data$", views.IndexJSONData.as_view(), name="index_json"),
+    url("^test$", views.TestPage.as_view(), name="test"),
 ]

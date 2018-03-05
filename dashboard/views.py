@@ -8,6 +8,10 @@ import psutil
 class DashboardIndex(TemplateView):
     template_name = "dashboard/index.html"
 
+# Test page
+class TestPage(TemplateView):
+    template_name = "dashboard/for_test.html"
+
 
 # Index page refresh data as JSON
 # RAM, temp
