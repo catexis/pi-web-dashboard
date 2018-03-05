@@ -49,3 +49,14 @@ class IndexJsonTemp(View):
         jsonData['temp'] = temp
         jsonData['time'] = datetime.now().strftime("%H:%M:%S")
         return HttpResponse(json.dumps(jsonData))
+
+# Uptime
+class IndexJsonUptime(View):
+    # Uptime
+    def get(self, *args, **kwargs):
+        jsonData = {}
+        with open('/proc/uptime', 'r') as f:
+            uptime_seconds = float(f.readline().split()[0])
+            uptime_string = str(timedelta(seconds = uptime_seconds))
+        jsonData['uptime'] = uptime_string
+        return HttpResponse(json.dumps(jsonData))

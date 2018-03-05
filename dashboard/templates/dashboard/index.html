@@ -27,9 +27,25 @@
                         <strong class="card-title">Дисковое пространство</strong>
                     </div>
                     <div class="card-body">
-                        <p class="card-text">
+                        <div class="col-md-9">
                             <canvas id="diskSpase"></canvas>
-                        </p>
+                        </div>
+                        <div class="col-md-3">
+                            <table class="table" style="text-align:center;">
+                                <tr>
+                                    <td><b>Used</b></td>
+                                </tr>
+                                <tr>
+                                    <td id="disk_used">000.0</td>
+                                </tr>
+                                <tr>
+                                    <td><b>Free</b></td>
+                                </tr>
+                                <tr>
+                                    <td id="disk_free">000.0</td>
+                                </tr>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -83,7 +99,7 @@
                                 </tr>
                                 <tr>
                                     <td>Uptime</td>
-                                    <td>
+                                    <td id="uptime">
                                         5:00:03.0987
                                     </td>
                                 </tr>
@@ -212,6 +228,10 @@
                     cptLineChart.data.labels.push(data.time);
                     cptLineChart.data.datasets[0].data.push(data.temp);
                     cptLineChart.update();
+                });
+                // Uptime
+                $.getJSON('index/uptime', function(data){
+                    $("#uptime").text(data.uptime);
                 });
             }, 1000);  // Интервал
         });
