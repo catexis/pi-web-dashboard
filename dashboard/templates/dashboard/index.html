@@ -128,7 +128,7 @@
             type: 'pie',
             data: {
                 datasets: [{
-                        data: [75, 25],
+                        data: [{{ disk_used }}, {{ disk_free }}],
                         backgroundColor: [
                             'rgba(0, 123, 255,0.9)',
                             'rgba(255, 153, 102,0.7)'
@@ -234,6 +234,16 @@
                     $("#uptime").text(data.uptime);
                 });
             }, 2000);  // Интервал
+            setInterval(function(){
+                // Disk usage
+                $.getJSON('index/disk', function(data){
+                    dsPieChart.data.datasets[0].data.splice(0,2);
+                    dsPieChart.data.datasets[0].data.push(data.disk_free, data.disk_used);
+                    dsPieChart.update();
+                    $("#disk_used").text(data.disk_used);
+                    $("#disk_free").text(data.disk_free);
+                });
+            }, 300000);  // Every 5 minutes
         });
 
     </script>
