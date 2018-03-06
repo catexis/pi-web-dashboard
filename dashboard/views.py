@@ -11,8 +11,8 @@ class DashboardIndex(TemplateView):
     
     def get_context_data(self, **kwargs):
         ret = super().get_context_data(**kwargs)
-        ret["disk_used"] = round((psutil.disk_usage("/").used / 1024 / 1024),0)
-        ret["disk_free"] = round((psutil.disk_usage("/").free / 1024 / 1024),0)
+        ret["disk_used"] = int(psutil.disk_usage("/").used / 1024 / 1024)
+        ret["disk_free"] = int(psutil.disk_usage("/").free / 1024 / 1024)
         return ret
 
 
@@ -54,8 +54,8 @@ class IndexJsonDisk(View):
     # Disk usage
     def get(self, *args, **kwargs):
         jsonData = {}
-        jsonData["disk_used"] = round((psutil.disk_usage("/").used / 1024 / 1024),0)
-        jsonData["disk_free"] = round((psutil.disk_usage("/").free / 1024 / 1024),0)
+        jsonData["disk_used"] = int(psutil.disk_usage("/").used / 1024 / 1024)
+        jsonData["disk_free"] = int(psutil.disk_usage("/").free / 1024 / 1024)
         return HttpResponse(json.dumps(jsonData))
 
 
