@@ -33,13 +33,13 @@
                         <div class="col-md-3">
                             <table class="table" style="text-align:center;">
                                 <tr>
-                                    <td><b>Used</b></td>
+                                    <td><b>Used (Mb)</b></td>
                                 </tr>
                                 <tr>
                                     <td id="disk_used">{{ disk_used }}</td>
                                 </tr>
                                 <tr>
-                                    <td><b>Free</b></td>
+                                    <td><b>Free (Mb)</b></td>
                                 </tr>
                                 <tr>
                                     <td id="disk_free">{{ disk_free }}</td>
@@ -62,13 +62,13 @@
                         <div class="col-md-3">
                             <table class="table" style="text-align:center;">
                                 <tr>
-                                    <td><b>Used</b></td>
+                                    <td><b>Used (Mb)</b></td>
                                 </tr>
                                 <tr>
                                     <td id="ram_used">000.0</td>
                                 </tr>
                                 <tr>
-                                    <td><b>Free</b></td>
+                                    <td><b>Free (Mb)</b></td>
                                 </tr>
                                 <tr>
                                     <td id="ram_free">000.0</td>
@@ -89,7 +89,7 @@
                             <table class="table">
                                 <tr>
                                     <td>Ext. ip</td>
-                                    <td>127.0.0.1</td>
+                                    <td id="ext_ip">{{ ext_ip }}</td>
                                 </tr>
                                 <tr>
                                     <td>Computer</td>
@@ -100,7 +100,7 @@
                                 <tr>
                                     <td>Uptime</td>
                                     <td id="uptime">
-                                        5:00:03.0987
+                                        0:00:00.0000
                                     </td>
                                 </tr>
                             </table>
@@ -134,7 +134,7 @@
                             'rgba(255, 153, 102,0.7)'
                         ]
                     }],
-                labels: ["Used", "Free"],
+                labels: ["Free", "Used"],
                 },
             options: {
                     responsive: true
@@ -150,7 +150,7 @@
             data: {
                 labels: ["0"],
                 datasets: [{
-                    label: "Температура ЦП",
+                    // label: "Температура ЦП",
                     backgroundColor: 'transparent',
                     borderColor: 'rgba(220,53,69,0.75)',
                     data: [0],
@@ -242,6 +242,10 @@
                     dsPieChart.update();
                     $("#disk_used").text(data.disk_used);
                     $("#disk_free").text(data.disk_free);
+                });
+                // External ip
+                $.getJSON('index/ext_ip', function(data){
+                    $("#ext_ip").text(data.ext_ip);
                 });
             }, 300000);  // Every 5 minutes
         });

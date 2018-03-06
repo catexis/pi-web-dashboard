@@ -2,6 +2,7 @@ from django.views.generic import TemplateView, View
 from django.http import HttpResponse
 from subprocess import Popen, PIPE
 from datetime import datetime, timedelta
+import requests
 import json
 import psutil
 
@@ -13,6 +14,10 @@ class DashboardIndex(TemplateView):
         ret = super().get_context_data(**kwargs)
         ret["disk_used"] = int(psutil.disk_usage("/").used / 1024 / 1024)
         ret["disk_free"] = int(psutil.disk_usage("/").free / 1024 / 1024)
+        try:
+            ret["ext_ip"] = requests.get("http://ipecho.net/plain", timeout=2).text
+        except:
+            ret["ext_ip"] = "127.0.0.1"
         return ret
 
 
@@ -56,6 +61,17 @@ class IndexJsonDisk(View):
         jsonData = {}
         jsonData["disk_used"] = int(psutil.disk_usage("/").used / 1024 / 1024)
         jsonData["disk_free"] = int(psutil.disk_usage("/").free / 1024 / 1024)
+        return HttpResponse(json.dumps(jsonData))
+
+
+# Ext ip
+class IndexJsonExtIp(View):
+    def get(self, *args, **kwargs):
+        jsonData = {}
+        try:
+            jsonData["ext_ip"] = requests.get("http://ipecho.net/plain", timeout=2).text
+        except:
+            jsonData["ext_ip"] = "127.0.0.1"
         return HttpResponse(json.dumps(jsonData))
 
 

@@ -30,6 +30,7 @@ urlpatterns = [
     url("^index/disk$", views.IndexJsonDisk.as_view(), name="index_disk"),
     url("^index/temp$", views.IndexJsonTemp.as_view(), name="index_temp"),
     url("^index/uptime$", views.IndexJsonUptime.as_view(), name="index_uptime"),
+    url("^index/ext_ip$", views.IndexJsonExtIp.as_view(), name="index_extip"),
     
     url("^test$", views.TestPage.as_view(), name="test"),
 ]
