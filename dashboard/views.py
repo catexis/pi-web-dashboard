@@ -9,8 +9,8 @@ import psutil
 class DashboardIndex(TemplateView):
     template_name = "dashboard/index.html"
     
-    def get_context_data(self, **kwargs):
-        ret = super(DashboardIndex, self).get_context_data(self, **kwargs)
+    def get_context_data(self):
+        ret = super(DashboardIndex, self).get_context_data(self)
         ret["disk_used"] = round((psutil.disk_usage("/").used / 1024 / 1024),1)
         ret["disk_free"] = round((psutil.disk_usage("/").free / 1024 / 1024),1)
         return ret
