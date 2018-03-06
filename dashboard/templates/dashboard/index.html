@@ -36,13 +36,13 @@
                                     <td><b>Used</b></td>
                                 </tr>
                                 <tr>
-                                    <td id="disk_used">000.0</td>
+                                    <td id="disk_used">{{ disk_used }}</td>
                                 </tr>
                                 <tr>
                                     <td><b>Free</b></td>
                                 </tr>
                                 <tr>
-                                    <td id="disk_free">000.0</td>
+                                    <td id="disk_free">{{ disk_free }}</td>
                                 </tr>
                             </table>
                         </div>
@@ -233,7 +233,7 @@
                 $.getJSON('index/uptime', function(data){
                     $("#uptime").text(data.uptime);
                 });
-            }, 1000);  // Интервал
+            }, 2000);  // Интервал
         });
 
     </script>

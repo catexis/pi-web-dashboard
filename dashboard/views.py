@@ -8,28 +8,13 @@ import psutil
 # Index page
 class DashboardIndex(TemplateView):
     template_name = "dashboard/index.html"
+    
+    def get_context_data(self, **kwargs):
+        ret = super(DashboardIndex, self).get_context_data(self, **kwargs)
+        ret["disk_used"] = round((psutil.disk_usage("/").used / 1024 / 1024),1)
+        ret["disk_free"] = round((psutil.disk_usage("/").free / 1024 / 1024),1)
+        return ret
 
-# Test page
-class TestPage(TemplateView):
-    template_name = "dashboard/for_test.html"
-
-
-# Index page refresh data as JSON
-class IndexJSONData(View):
-    def get(self, *args, **kwargs):
-        jsonData = {}
-
-        # Температура
-        # temp = Popen('vcgencmd measure_temp', shell=True, stdin=PIPE, stdout=PIPE).stdout.read().decode('utf-8')[5:9]
-        # jsonData['temp'] = temp
-
-        # RAM
-        used_ram = round(psutil.virtual_memory().used / 1024 / 1024, 1)
-        free_ram = round(psutil.virtual_memory().free / 1024 / 1024, 1)
-        jsonData['used_ram'] = used_ram
-        jsonData['free_ram'] = free_ram
-
-        return HttpResponse(json.dumps(jsonData))
 
 # RAM
 class IndexJsonRam(View):
@@ -41,6 +26,7 @@ class IndexJsonRam(View):
         jsonData['free_ram'] = free_ram
         return HttpResponse(json.dumps(jsonData))
 
+
 # Temp
 class IndexJsonTemp(View):
     def get(self, *args, **kwargs):
@@ -49,6 +35,7 @@ class IndexJsonTemp(View):
         jsonData['temp'] = temp
         jsonData['time'] = datetime.now().strftime("%H:%M:%S")
         return HttpResponse(json.dumps(jsonData))
+
 
 # Uptime
 class IndexJsonUptime(View):
@@ -60,3 +47,18 @@ class IndexJsonUptime(View):
             uptime_string = str(timedelta(seconds = uptime_seconds))
         jsonData['uptime'] = uptime_string
         return HttpResponse(json.dumps(jsonData))
+
+
+# Disk
+class IndexJsonDisk(View):
+    # Disk usage
+    def get(self, *args, **kwargs):
+        jsonData = {}
+        jsonData["disk_used"] = round((psutil.disk_usage("/").used / 1024 / 1024),1)
+        jsonData["disk_free"] = round((psutil.disk_usage("/").free / 1024 / 1024),1)
+        return HttpResponse(json.dumps(jsonData))
+
+
+# Test page
+class TestPage(TemplateView):
+    template_name = "dashboard/for_test.html"
