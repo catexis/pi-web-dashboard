@@ -32,5 +32,8 @@ urlpatterns = [
     url("^index/uptime$", views.IndexJsonUptime.as_view(), name="index_uptime"),
     url("^index/ext_ip$", views.IndexJsonExtIp.as_view(), name="index_extip"),
     
+    # Tools
+    url("^price_scrapper$", views.PriceScrapper.as_view(), name="price_scrapper"),
+
     url("^test$", views.TestPage.as_view(), name="test"),
 ]

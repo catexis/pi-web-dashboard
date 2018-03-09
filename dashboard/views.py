@@ -5,6 +5,7 @@ from datetime import datetime, timedelta
 import requests
 import json
 import psutil
+from . import models
 
 # Index page
 class DashboardIndex(TemplateView):
@@ -74,6 +75,40 @@ class IndexJsonExtIp(View):
             jsonData["ext_ip"] = "127.0.0.1"
         return HttpResponse(json.dumps(jsonData))
 
+
+# Price scrapper
+class PriceScrapper(TemplateView):
+    template_name = "dashboard/price_scrapper.html"
+
+    def get_context_data(self, **kwargs):
+
+        # Create list of dictionarys with all data
+        list_output = []
+        positions = models.PricePosition.objects.all()
+        for i in positions:
+            output = {}
+            list_price = []
+            list_date = []
+            output["id"] = i.id
+            output["name"] = i.name
+            output["url"] = i.url
+            pr_pr = models.PricePrice.objects.filter(name_id=i.id).order_by('date')
+            for t in pr_pr:
+                list_price.append(t.price)
+                list_date.append(t.date.strftime("%Y-%m-%d %H:%M"))
+            output["price"] = list_price
+            output["date"] = list_date
+            output["in_stock"] = pr_pr.last().in_stock
+            list_output.append(output)
+            del output
+            del list_date
+            del list_price
+
+
+        if 'view' not in kwargs:
+            kwargs["view"] = self
+            kwargs["positions"] = list_output
+        return kwargs
 
 # Test page
 class TestPage(TemplateView):

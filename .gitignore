@@ -1,5 +1,7 @@
 .vscode
 static_web
+debug.py
+dashboard/migrations/*
 
 db.sqlite3
 
