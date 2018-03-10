@@ -2,7 +2,7 @@ from django.views.generic import TemplateView, View
 from django.http import HttpResponse
 from subprocess import Popen, PIPE
 from datetime import datetime, timedelta
-from wakeonlan import send_magic_packet
+from wakeonlan import wol
 from os import system
 import requests
 import json
@@ -120,8 +120,7 @@ class HomePCPage(TemplateView):
 
 class HomePCPowerOn(View):
     def get(self, *args, **kwargs):
-        send_magic_packet('E0-3F-49-16-37-BB')
-        print("ok")
+        wol.send_magic_packet('E0-3F-49-16-37-BB')
         return HttpResponse("")
 
 

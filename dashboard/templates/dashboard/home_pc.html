@@ -42,11 +42,21 @@
             setInterval(function(){
                 // Home PC Ping
                 $.get("home_pc/ping", function(data){
-                    if(data == "on" && $("#power_on_icon").hasClass("fa-spin")){
-                        $("#power_on_icon").removeClass( "fa-spin" );
-                        $("#pc_status").removeClass( "badge-secondary" );
-                        $("#pc_status").addClass( "badge-success" );
-                        $("#pc_status").text( "on" );
+                    if(data == "on"){
+                        if($("#pc_status").hasClass("badge-secondary")){
+                            $("#pc_status").removeClass( "badge-secondary" );
+                            $("#pc_status").addClass( "badge-success" );
+                            $("#pc_status").text( "on" );
+                        };
+                        if($("#power_on_icon").hasClass("fa-spin")){
+                            $("#power_on_icon").removeClass( "fa-spin" );
+                        };
+                    } else {
+                        if($("#pc_status").hasClass("badge-success")){
+                            $("#pc_status").removeClass( "badge-success" );
+                            $("#pc_status").addClass( "badge-secondary" );
+                            $("#pc_status").text( "off" );
+                        };
                     };
                 });
             }, 5000);  // Every 30 seconds
