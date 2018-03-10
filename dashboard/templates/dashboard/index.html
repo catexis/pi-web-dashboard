@@ -94,7 +94,7 @@
                                 <tr>
                                     <td>Computer</td>
                                     <td>
-                                        <span class="badge badge-secondary">Off</span>
+                                        <span class="badge badge-secondary" id="pc_status">off</span>
                                     </td>
                                 </tr>
                                 <tr>
@@ -248,6 +248,24 @@
                     $("#ext_ip").text(data.ext_ip);
                 });
             }, 300000);  // Every 5 minutes
+            setInterval(function(){
+                // Home PC Ping
+                $.get("home_pc/ping", function(data){
+                    if(data == "on"){
+                        if($("#pc_status").hasClass("badge-secondary")){
+                            $("#pc_status").removeClass( "badge-secondary" );
+                            $("#pc_status").addClass( "badge-success" );
+                            $("#pc_status").text( "on" );
+                        };
+                    } else {
+                        if($("#pc_status").hasClass("badge-success")){
+                            $("#pc_status").removeClass( "badge-success" );
+                            $("#pc_status").addClass( "badge-secondary" );
+                            $("#pc_status").text( "off" );
+                        };
+                    };
+                });
+            }, 5000);  // Every 30 seconds
         });
 
     </script>
