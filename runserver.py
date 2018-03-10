@@ -1,3 +1,4 @@
+import os
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "pi_web.settings")
 
 from django.core.management import call_command
