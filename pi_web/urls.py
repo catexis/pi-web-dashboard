@@ -36,6 +36,11 @@ urlpatterns = [
     url("^index/uptime$", views.IndexJsonUptime.as_view(), name="index_uptime"),
     url("^index/ext_ip$", views.IndexJsonExtIp.as_view(), name="index_extip"),
     
+    # Home PC
+    url("^home_pc$", views.HomePCPage.as_view(), name="home_pc"),
+    url("^home_pc/poweron$", views.HomePCPowerOn.as_view(), name="home_pc_pon"),
+    url("^home_pc/ping$", views.HomePCPing.as_view(), name="home_pc_ping"),
+    
     # Tools
     url("^price_scrapper$", views.PriceScrapper.as_view(), name="price_scrapper"),
 

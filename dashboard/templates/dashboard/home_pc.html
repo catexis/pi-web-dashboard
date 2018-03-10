@@ -1,0 +1,55 @@
+{% extends "dashboard/base.html" %}
+{% load staticfiles %}
+
+{% block content %}
+
+<div class="content mt-3">
+    <div class="animated fadeIn">
+        <div class="row">
+            
+            <!-- Размещать контент тут -->
+                <div class="col-md-4">
+                    <div class="card">
+                        <div class="card-header">
+                            <strong class="card-title">Питание компьютера</strong>
+                        </div>
+                        <div class="card-body">
+                            <button type="button" class="btn btn-primary btn-lg btn-block" id="power_on"><i class="fa fa-power-off" id="power_on_icon" aria-hidden="true"></i> Включить компьютер</button>
+                            <button type="button" class="btn btn-danger btn-lg btn-block" id="power_off"><i class="fa fa-power-off" id="power_off_icon" aria-hidden="true"></i> Выключить компьютер</button>
+                            <hr>
+                            <div class="card-text text-sm-center">
+                                Текущее состояние: <span class="badge badge-secondary" id="pc_status">off</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+        </div><!-- .row -->
+    </div><!-- .animated -->
+</div><!-- .content -->
+
+{% endblock %}
+
+{% block js %}
+    <script src="{% static 'assets/js/jquery-3.3.1.min.js' %}"></script>    
+    <script>
+        $("#power_on").click(function() {
+            $.get("home_pc/poweron", function( data ) {
+                $("#power_on_icon").addClass( "fa-spin" );
+            });
+        });
+        $(document).ready(function(){
+            setInterval(function(){
+                // Home PC Ping
+                $.get("home_pc/ping", function(data){
+                    if(data == "on" && $("#power_on_icon").hasClass("fa-spin")){
+                        $("#power_on_icon").removeClass( "fa-spin" );
+                        $("#pc_status").removeClass( "badge-secondary" );
+                        $("#pc_status").addClass( "badge-success" );
+                        $("#pc_status").text( "on" );
+                    };
+                });
+            }, 5000);  // Every 30 seconds
+        });
+    </script>
+{% endblock %}

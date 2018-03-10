@@ -2,6 +2,8 @@ from django.views.generic import TemplateView, View
 from django.http import HttpResponse
 from subprocess import Popen, PIPE
 from datetime import datetime, timedelta
+from wakeonlan import send_magic_packet
+from os import system
 import requests
 import json
 import psutil
@@ -109,6 +111,28 @@ class PriceScrapper(TemplateView):
             kwargs["view"] = self
             kwargs["positions"] = list_output
         return kwargs
+
+
+# Home PC
+class HomePCPage(TemplateView):
+    template_name = "dashboard/home_pc.html"
+
+
+class HomePCPowerOn(View):
+    def get(self, *args, **kwargs):
+        send_magic_packet('E0-3F-49-16-37-BB')
+        print("ok")
+        return HttpResponse("")
+
+
+class HomePCPing(View):
+    def get(self, *args, **kwargs):
+        ping = system("ping -c 1 192.168.1.4")
+        if ping == 0:
+            return HttpResponse("on")
+        else:    
+            return HttpResponse("off")
+
 
 # Test page
 class TestPage(TemplateView):
