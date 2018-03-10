@@ -19,8 +19,15 @@
                         <div class="card-body">
                             <canvas id="price{{ pos.id }}"></canvas>
                             <hr>
-                            <div class="card-text text-sm-center">
+                            <div class="card-text text-sm-center col-md-6">
                                 <a href="{{ pos.url }}" target="_blank"><i class="fa fa-link" aria-hidden="true"></i> Go to shop</a>
+                            </div>
+                            <div class="text-sm-center col-md-6">
+                                {% if pos.in_stock == True %}
+                                    <i class="fa fa-check-square-o" aria-hidden="true"></i> В наличии
+                                {% else %}
+                                    <i class="fa fa-square-o" aria-hidden="true"></i> Нет в наличии
+                                {% endif %}
                             </div>
                         </div>
                     </div>

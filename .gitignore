@@ -2,6 +2,7 @@
 static_web
 debug.py
 dashboard/migrations/*
+test
 
 db.sqlite3
 

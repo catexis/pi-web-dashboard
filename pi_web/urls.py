@@ -21,6 +21,10 @@ from dashboard import views
 from django.conf import settings
 from django.conf.urls.static import static
 
+admin.site.site_header = "Raspberry Pi Admin"
+admin.site.site_title = "Raspberry Pi Web Portal"
+admin.site.index_title = "Welcome to pi_web_dashboard admin site"
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     url("^$", views.DashboardIndex.as_view(), name="dashboard_index"),
