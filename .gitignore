@@ -3,8 +3,8 @@ static_web
 debug.py
 dashboard/migrations/*
 test
-zmq/netmq/.vs
-zmq/netmq/netmq/bin/*
+message_system/netmq/.vs
+message_system/netmq/netmq/bin/*
 
 db.sqlite3
 
