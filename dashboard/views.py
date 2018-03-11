@@ -4,7 +4,7 @@ from subprocess import Popen, PIPE
 from datetime import datetime, timedelta
 from wakeonlan import wol
 from os import system
-import message_system
+from message_system import msg
 import requests
 import json
 import psutil
@@ -129,7 +129,7 @@ class HomePCPowerOff(View):
     def get(self, *args, **kwargs):
         try:
             # message_system.msg("powerpcoff")
-            message_system.msg("from web")
+            msg.send_message("from web")
         except:
             pass
         return HttpResponse("")
