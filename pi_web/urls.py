@@ -39,6 +39,7 @@ urlpatterns = [
     # Home PC
     url("^home_pc$", views.HomePCPage.as_view(), name="home_pc"),
     url("^home_pc/poweron$", views.HomePCPowerOn.as_view(), name="home_pc_pon"),
+    url("^home_pc/poweroff$", views.HomePCPowerOff.as_view(), name="home_pc_poff"),
     url("^home_pc/ping$", views.HomePCPing.as_view(), name="home_pc_ping"),
     
     # Tools

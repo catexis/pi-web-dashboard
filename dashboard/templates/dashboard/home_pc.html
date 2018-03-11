@@ -38,6 +38,11 @@
                 $("#power_on_icon").addClass( "fa-spin" );
             });
         });
+        $("#power_off").click(function() {
+            $.get("home_pc/poweroff", function( data ) {
+                $("#power_off_icon").addClass( "fa-spin" );
+            });
+        });
         $(document).ready(function(){
             setInterval(function(){
                 // Home PC Ping
@@ -57,9 +62,12 @@
                             $("#pc_status").addClass( "badge-secondary" );
                             $("#pc_status").text( "off" );
                         };
+                        if($("#power_off_icon").hasClass("fa-spin")){
+                            $("#power_off_icon").removeClass( "fa-spin" );
+                        };
                     };
                 });
-            }, 5000);  // Every 30 seconds
+            }, 5000);  // Every 5 seconds
         });
     </script>
 {% endblock %}
