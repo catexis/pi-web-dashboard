@@ -16,3 +16,12 @@ E:\gd_u\development\python\projects\pi_web\pi_web_dashboard\zmq\netmq\netmq\obj\
 E:\gd_u\development\python\projects\pi_web\pi_web_dashboard\zmq\netmq\netmq\obj\Debug\netmq.csproj.CoreCompileInputs.cache
 E:\gd_u\development\python\projects\pi_web\pi_web_dashboard\zmq\netmq\netmq\obj\Debug\netmq.exe
 E:\gd_u\development\python\projects\pi_web\pi_web_dashboard\zmq\netmq\netmq\obj\Debug\netmq.pdb
+E:\gd_u\development\python\projects\pi_web\pi_web_dashboard\message_system\netmq\netmq\bin\Debug\netmq.exe.config
+E:\gd_u\development\python\projects\pi_web\pi_web_dashboard\message_system\netmq\netmq\bin\Debug\netmq.exe
+E:\gd_u\development\python\projects\pi_web\pi_web_dashboard\message_system\netmq\netmq\bin\Debug\netmq.pdb
+E:\gd_u\development\python\projects\pi_web\pi_web_dashboard\message_system\netmq\netmq\bin\Debug\AsyncIO.dll
+E:\gd_u\development\python\projects\pi_web\pi_web_dashboard\message_system\netmq\netmq\bin\Debug\NetMQ.dll
+E:\gd_u\development\python\projects\pi_web\pi_web_dashboard\message_system\netmq\netmq\obj\Debug\netmq.csprojResolveAssemblyReference.cache
+E:\gd_u\development\python\projects\pi_web\pi_web_dashboard\message_system\netmq\netmq\obj\Debug\netmq.csproj.CoreCompileInputs.cache
+E:\gd_u\development\python\projects\pi_web\pi_web_dashboard\message_system\netmq\netmq\obj\Debug\netmq.exe
+E:\gd_u\development\python\projects\pi_web\pi_web_dashboard\message_system\netmq\netmq\obj\Debug\netmq.pdb

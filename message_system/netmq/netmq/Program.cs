@@ -34,14 +34,17 @@ namespace netmq
                         server.SendFrame("ok");
                     };
 
-                    if(message == "tw")
+                    if (message == "tw")
                     {
                         Process.Start("C:\\Program Files (x86)\\TeamViewer\\TeamViewer.exe");
                         server.SendFrame("ok");
+                    }
+                    else  // В любом ином случае
+                    {
+                        Console.WriteLine("ok");
+                        server.SendFrame("ok");
                     };
 
-                    //Console.WriteLine("Sending World");
-                    //server.SendFrame("World");
                 }
             }
 

@@ -9,8 +9,8 @@ def send_message(msg):
     socket = context.socket(zmq.REQ)
     socket.setsockopt(zmq.LINGER, 0)
     socket.connect("tcp://192.168.1.4:5555")
-    msg = str(msg)
-    socket.send(b'' + msg + '') # send can block on other socket types, so keep track
+    msg = str(msg).encode()
+    socket.send(msg) # send can block on other socket types, so keep track
     # use poll for timeouts:
     poller = zmq.Poller()
     poller.register(socket, zmq.POLLIN)
@@ -25,4 +25,4 @@ def send_message(msg):
 
 
 if __name__ == "__main__":
-    print("This is not stanalone program")
+    send_message("hello")
