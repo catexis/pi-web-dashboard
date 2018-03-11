@@ -128,7 +128,8 @@ class HomePCPowerOn(View):
 class HomePCPowerOff(View):
     def get(self, *args, **kwargs):
         try:
-            message_system.msg("powerpcoff")
+            # message_system.msg("powerpcoff")
+            message_system.msg("from web")
         except:
             pass
         return HttpResponse("")
