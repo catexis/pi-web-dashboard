@@ -3,12 +3,12 @@
 Для мониторинга состояния различных компонентов использована библиотека [psutils](https://pypi.python.org/pypi/psutil) ([документация](http://psutil.readthedocs.io/))  
 Статика подключена вот [этим сопсобом](https://catexis.wordpress.com/2018/02/22/static-in-%D0%B2-django/).  
 
-## Скриншоты
+## Screenshots
 ![Index page](screenshots/001.png)  
 ![Power PC](screenshots/002.png)  
 ![Price scrapper](screenshots/003.png)  
 
-## Итостория
+## History
 ### 12.03.2018
 За прошедшие выходные была проделана большая работа
 *  На главной странице доделаны графики
