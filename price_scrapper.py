@@ -20,7 +20,7 @@ for i in PricePosition.objects.all():
     price_r = price_r.replace("руб.", "").replace(" ", "")
 
     in_stock = soup.find("div", class_="statushelp_layer").find('strong').get_text()
-    if in_stock == "на складе и готов к отправке":
+    if ("на складе и готов" in in_stock) or ("удет отправлен после" in in_stock):
         in_stock = True
     else:
         in_stock = False
