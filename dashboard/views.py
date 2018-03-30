@@ -144,9 +144,9 @@ class HomePCPing(View):
 
 
 class Journals(TemplateView):
-    template_name = "dashboard/for_test.html"
+    template_name = "dashboard/journals.html"
 
 
 # Test page
 class TestPage(TemplateView):
-    template_name = "dashboard/journals.html"
+    template_name = "dashboard/for_test.html"
