@@ -143,6 +143,10 @@ class HomePCPing(View):
             return HttpResponse("off")
 
 
+class Journals(TemplateView):
+    template_name = "dashboard/for_test.html"
+
+
 # Test page
 class TestPage(TemplateView):
-    template_name = "dashboard/for_test.html"
+    template_name = "dashboard/journals.html"

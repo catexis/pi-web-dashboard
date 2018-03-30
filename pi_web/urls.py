@@ -43,6 +43,7 @@ urlpatterns = [
     url("^home_pc/ping$", views.HomePCPing.as_view(), name="home_pc_ping"),
     
     # Tools
+    url("^journals$", views.Journals.as_view(), name="journals"),
     url("^price_scrapper$", views.PriceScrapper.as_view(), name="price_scrapper"),
 
     url("^test$", views.TestPage.as_view(), name="test"),
