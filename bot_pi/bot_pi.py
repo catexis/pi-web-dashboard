@@ -5,7 +5,6 @@ from datetime import datetime
 import socket
 from subprocess import Popen, PIPE
 import json
-from . import token
 
 # For logging
 import sys, os
@@ -15,6 +14,7 @@ os.environ.setdefault("DJANGO_SETTINGS_MODULE", "pi_web.settings")
 django.setup()
 from dashboard.models import LogBotPi
 
+from bot_pi.token import token
 
 # Telegram bot
 URL = 'https://api.telegram.org/bot' + token.token + '/'
