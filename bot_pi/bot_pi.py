@@ -5,7 +5,7 @@ from datetime import datetime
 import socket
 from subprocess import Popen, PIPE
 import json
-from token import token
+from . import token
 
 # For logging
 import sys, os
@@ -17,7 +17,7 @@ from dashboard.models import LogBotPi
 
 
 # Telegram bot
-URL = 'https://api.telegram.org/bot' + token + '/'
+URL = 'https://api.telegram.org/bot' + token.token + '/'
 
 
 def get_updates():
