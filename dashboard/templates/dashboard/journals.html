@@ -14,12 +14,12 @@
                         <strong class="card-title">Журнал Ras_Pi</strong>
                     </div>
                     <div class="card-body">
-                        <table>
+                        <table class="table table-striped">
                             
                             {% for row in log_table %}
                             <tr>
-                                <td>{{ row.time_stamp|date:"Y-m-d H:i:s" }}</td>
-                                <td>{{ row.history }}</td>
+                                <td class="col-md-4">{{ row.time_stamp|date:"Y-m-d H:i:s" }}</td>
+                                <td class="col-md-8">{{ row.history }}</td>
                             </tr>
                             {% endfor %}
 
