@@ -15,14 +15,20 @@
                     </div>
                     <div class="card-body">
                         <table class="table table-striped">
-                            
-                            {% for row in log_table %}
-                            <tr>
-                                <td class="col-md-4">{{ row.time_stamp|date:"Y-m-d H:i:s" }}</td>
-                                <td class="col-md-8">{{ row.history }}</td>
-                            </tr>
-                            {% endfor %}
-
+                            <thead>
+                                <tr>
+                                    <th scope="col">Время</th>
+                                    <th scope="col">Сообщение</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for row in log_table %}
+                                    <tr>
+                                        <td style="width: 35%;">{{ row.time_stamp|date:"Y-m-d H:i:s" }}</td>
+                                        <td style="width: 65%;">{{ row.history }}</td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
                         </table>
                     </div>
                 </div>
