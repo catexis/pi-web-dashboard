@@ -146,6 +146,15 @@ class HomePCPing(View):
 class Journals(TemplateView):
     template_name = "dashboard/journals.html"
 
+    def get_context_data(self, **kwargs):
+        if 'view' not in kwargs:
+            kwargs['view'] = self
+        if self.extra_context is not None:
+            kwargs.update(self.extra_context)
+        log = models.LogBotPi.objects.all()
+        kwargs["log_table"] = log
+        return kwargs
+
 
 # Test page
 class TestPage(TemplateView):

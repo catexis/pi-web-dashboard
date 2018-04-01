@@ -5,10 +5,18 @@ from datetime import datetime
 import socket
 from subprocess import Popen, PIPE
 import json
+from token import token
+
+# For logging
+import sys, os
+import django
+sys.path.append(os.path.join(sys.path[0], ".."))
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "pi_web.settings")
+django.setup()
+from dashboard.models import LogBotPi
 
 
 # Telegram bot
-token = '529286472:AAGAEGj_1Jib66idDtNZTKayacnOhwqP9aM'
 URL = 'https://api.telegram.org/bot' + token + '/'
 
 
@@ -31,6 +39,12 @@ def first_read_list_update_id():
     for i in range(0, len_of_new_mes_list, 1):
         update_list.append(data['result'][i]['update_id'])
     return update_list
+
+
+def log_message(text):
+    if text:
+        log_string = LogBotPi.objects.create(history = "(bot_pi) {0}".format(text))
+        log_string.save()
 
 
 # DNS update
@@ -116,6 +130,7 @@ commands = [
 
 if __name__ == "__main__":
     send_message(chat_id, text="Бот запущен")
+    log_message("bot_pi_v2 started")
     while 1:
         # Part of telegram bot
         req = get_updates()
@@ -142,8 +157,10 @@ if __name__ == "__main__":
                 send_message(chat_id, text="Hi! Use /help")
 
             if txt == "/update_ip":
+                log_message("(update_ip) command start")
                 ip_check = socket.gethostbyname('catexis.ddns.net')
                 ext_ip = ext_ip()
+                log_message("(update_ip) ext_ip = {0}".format(ext_ip))
                 if ip_check != ext_ip:
                     upd_status = dns_update(ext_ip)
                     if upd_status == 1:
@@ -155,6 +172,7 @@ if __name__ == "__main__":
 
             if txt == "/dns_record":
                 ip_check = socket.gethostbyname('catexis.ddns.net')
+                log_message("(dns_record) ip_check = {0}".format(ip_check))
                 text = "{0}\n{1}".format(
                     "catexis.ddns.net",
                     ip_check
@@ -203,6 +221,7 @@ if __name__ == "__main__":
                         sleep(1)
                 else:
                     send_message(chat_id, text="Что-то пошло не так...")
+                    log_message("(ip check cicle) something was srong")
             count = 0
         count += 1
 
