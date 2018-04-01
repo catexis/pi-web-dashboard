@@ -14,10 +14,10 @@ os.environ.setdefault("DJANGO_SETTINGS_MODULE", "pi_web.settings")
 django.setup()
 from dashboard.models import LogBotPi
 
-from bot_pi.token import token
+token = '529286472:AAGAEGj_1Jib66idDtNZTKayacnOhwqP9aM'
 
 # Telegram bot
-URL = 'https://api.telegram.org/bot' + token.token + '/'
+URL = 'https://api.telegram.org/bot' + token + '/'
 
 
 def get_updates():
