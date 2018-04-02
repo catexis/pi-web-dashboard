@@ -151,7 +151,7 @@ class Journals(TemplateView):
             kwargs['view'] = self
         if self.extra_context is not None:
             kwargs.update(self.extra_context)
-        log_botpi = models.LogBotPi.objects.all().order_by('-id').[:20]  # Последние 20 записей. Последние сверху.
+        log_botpi = models.LogBotPi.objects.all().order_by('-id')[:20]  # Последние 20 записей. Последние сверху.
         kwargs["log_botpi"] = log_botpi
         return kwargs
 
