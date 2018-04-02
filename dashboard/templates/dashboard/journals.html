@@ -11,7 +11,7 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header">
-                        <strong class="card-title">Журнал Ras_Pi</strong>
+                        <strong class="card-title">Журнал Telegram Bot Pi</strong>
                     </div>
                     <div class="card-body">
                         <table class="table table-striped">
@@ -22,10 +22,10 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                {% for row in log_table %}
+                                {% for row in log_botpi %}
                                     <tr>
-                                        <td style="width: 35%;">{{ row.time_stamp|date:"Y-m-d H:i:s" }}</td>
-                                        <td style="width: 65%;">{{ row.history }}</td>
+                                        <td style="width: 25%;">{{ row.time_stamp|date:"Y-m-d H:i:s" }}</td>
+                                        <td style="width: 75%;">{{ row.history }}</td>
                                     </tr>
                                 {% endfor %}
                             </tbody>

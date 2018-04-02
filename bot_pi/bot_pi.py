@@ -5,6 +5,7 @@ from datetime import datetime
 import socket
 from subprocess import Popen, PIPE
 import json
+from statistics import mode
 
 # For logging
 import sys, os
@@ -14,10 +15,10 @@ os.environ.setdefault("DJANGO_SETTINGS_MODULE", "pi_web.settings")
 django.setup()
 from dashboard.models import LogBotPi
 
-token = '529286472:AAGAEGj_1Jib66idDtNZTKayacnOhwqP9aM'
+from bot_pi_token import key
 
 # Telegram bot
-URL = 'https://api.telegram.org/bot' + token + '/'
+URL = 'https://api.telegram.org/bot' + key + '/'
 
 
 def get_updates():
@@ -56,47 +57,57 @@ def ext_ip():
     """
     time_out = 5  # Time out in seconds
     ip = 0  # Zero if nothing to return
+    ret_ip = []
     try:
         req = requests.get("http://ipinfo.io/ip", timeout = time_out)
         ip = req.text.strip()
+        ret_ip.append(ip)
     except:
         pass
     try:
         req = requests.get("https://api.ipify.org?format=json", timeout = time_out).text
         ip = json.loads(req)["ip"].strip()
+        ret_ip.append(ip)
     except:
         pass
     try:
         req = requests.get("http://httpbin.org/ip", timeout = time_out).text
         ip = json.loads(req)["origin"].strip()
+        ret_ip.append(ip)
     except:
         pass
     try:
         req = requests.get("https://myexternalip.com/json", timeout = time_out).text
         ip = json.loads(req)["ip"].strip()
+        ret_ip.append(ip)
     except:
         pass
     try:
         req = requests.get("http://ipecho.net/plain", timeout = time_out)
         ip = req.text.strip()
+        ret_ip.append(ip)
     except:
         pass
     try:
         req = requests.get("http://icanhazip.com", timeout = time_out)
         ip = req.text.strip()
+        ret_ip.append(ip)
     except:
         pass
     try:
         req = requests.get("http://ipv4bot.whatismyipaddress.com", timeout = time_out)
         ip = req.text.strip()
+        ret_ip.append(ip)
     except:
         pass
     try:
         req = requests.get("https://ident.me/", timeout = time_out)
         ip = req.text.strip()
+        ret_ip.append(ip)
     except:
         pass
-    return ip
+    log_message("[ext_ip()] return ip: {0}".format(mode(ret_ip)))
+    return mode(ret_ip)
 
 
 def dns_update(ip):
@@ -107,16 +118,23 @@ def dns_update(ip):
     ret = 0  # Возвращаемое значение
     update_url = "http://" + username + ":" + password + "@dynupdate.no-ip.com/nic/update?hostname=" + domain + "&myip=" + ip
     try:
+        log_message("[update_ip({0})] Запускаю обновление DNS".format(ip))
         req = requests.get(update_url, timeout = time_out)
         if req.status_code == 200:
             ret = 1
+            log_message("[update_ip({0})] Успешно!".format(ip))
+        else:
+            log_message("[update_ip({0})] Сервер вернул код {1}".format(ip, req.status_code))
     except:
         pass
     return ret
 
 
 req = get_updates()
-last_message_id = int(req["result"][-1]["message"]["message_id"])
+if req["result"][-1]["message"]["message_id"]:
+    last_message_id = int(req["result"][-1]["message"]["message_id"])
+else:
+    last_message_id = 0
 chat_id = 30596375
 count = 0
 commands = [
@@ -134,8 +152,11 @@ if __name__ == "__main__":
     while 1:
         # Part of telegram bot
         req = get_updates()
-        message_id = int(req["result"][-1]["message"]["message_id"])
-        res_chat_id = int(req["result"][-1]["message"]["from"]["id"])
+        if req["result"][-1]["message"]["message_id"]:
+            message_id = int(req["result"][-1]["message"]["message_id"])
+            res_chat_id = int(req["result"][-1]["message"]["from"]["id"])
+        else:
+            message_id = 0
         
         if message_id > last_message_id and res_chat_id == chat_id:
             txt = req["result"][-1]["message"]["text"]
@@ -204,6 +225,7 @@ if __name__ == "__main__":
             ext_ip = ext_ip()  # Взяли внешний ip
             if ip_check != ext_ip:
                 send_message(chat_id, text="Выдан новый IP. Начинаю обновление.")
+                log_message("(from update cycle) Выдан новый IP. Начинаю обновление.")
                 upd_status = dns_update(ext_ip)
                 if upd_status == 1:
                     send_message(chat_id, text="Команда на обновления успешно отправлена")
@@ -216,12 +238,13 @@ if __name__ == "__main__":
                                 ip_check
                             )
                             send_message(chat_id, text=text)
+                            log_message("(from update cycle) Запись DNS обновлена на {0} скунде".format(i))
                             del text
                             break
                         sleep(1)
                 else:
                     send_message(chat_id, text="Что-то пошло не так...")
-                    log_message("(ip check cicle) something was srong")
+                    log_message("(ip check cicle) IP в DNS не обновлён")
             count = 0
         count += 1
 

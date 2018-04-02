@@ -27,3 +27,12 @@ class LogBotPi(models.Model):
     class Meta:
         ordering = ["time_stamp"]
         db_table = "log_botpi"
+
+
+class LogDbCleaner(models.Model):
+    time_stamp = models.DateTimeField(auto_now=True)
+    history = models.TextField(blank = True)
+
+    class Meta:
+        ordering = ["time_stamp"]
+        db_table = "log_db_cleaner"

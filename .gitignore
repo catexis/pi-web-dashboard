@@ -5,7 +5,7 @@ dashboard/migrations/*
 test
 message_system/netmq/.vs
 message_system/netmq/netmq/bin/*
-bot_pi/token.py
+bot_pi/bot_pi_token.py
 db.sqlite3
 
 *.pyc
