@@ -92,6 +92,10 @@
                                     <td id="ext_ip">{{ ext_ip }}</td>
                                 </tr>
                                 <tr>
+                                    <td>Confirm using DNS name</td>
+                                    <td id=date>0</td>
+                                </tr>
+                                <tr>
                                     <td>Computer</td>
                                     <td>
                                         <span class="badge badge-secondary" id="pc_status">off</span>
@@ -267,6 +271,18 @@
                 });
             }, 5000);  // Every 30 seconds
         });
+
+        // Confirm DNS name usage
+        var DateDiff = {
+            inDays: function(d1, d2) {
+                var t2 = d2.getTime();
+                var t1 = d1.getTime();
+                return parseInt((t2-t1)/(24*3600*1000));
+            }};
+        var dString = "April, 9, 2018";
+        var d1 = new Date(dString);
+        var d2 = new Date();
+        $("#date").html(DateDiff.inDays(d1, d2) + " days left. <a href='https://www.noip.com/confirm-host?n=D1z9lQcQNPAjiEalnYQ' target='_blank'>Link</a>" );
 
     </script>
 {% endblock %}
