@@ -282,7 +282,7 @@
         var dString = "April, 9, 2018";
         var d1 = new Date(dString);
         var d2 = new Date();
-        $("#date").html(DateDiff.inDays(d1, d2) + " days left. <a href='https://www.noip.com/confirm-host?n=D1z9lQcQNPAjiEalnYQ' target='_blank'>Link</a>" );
+        $("#date").html(30 - DateDiff.inDays(d1, d2) + " days left. <a href='https://www.noip.com/confirm-host?n=D1z9lQcQNPAjiEalnYQ' target='_blank'>Link</a>" );
 
     </script>
 {% endblock %}
