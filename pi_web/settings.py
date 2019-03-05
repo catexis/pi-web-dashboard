@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/2.0/ref/settings/
 """
 
 import os
+import random
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -20,7 +21,16 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/2.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'tmd$pw#q-l62_a(7s=@u@7cv=2=35!b5d+i$lfa1g*+zpn8irh'
+try:
+    from pi_web.secret_key import SECRET_KEY
+except:
+    print("File 'secret_key.py' not found. Generating new secret key...")
+    new_key = ''.join(random.SystemRandom().choice('abcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*(-_=+)') for i in range(50))
+    str_to_write = "SECRET_KEY = '{0}'\n".format(new_key)
+    with open("secret_key.py", "w") as outf:
+        outf.write(str_to_write)
+    from pi_web.secret_key import SECRET_KEY
+
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True

@@ -1,4 +1,7 @@
+# Settings
 .vscode
+
+# Folders
 static_web
 debug.py
 dashboard/migrations/*
@@ -8,5 +11,7 @@ message_system/netmq/netmq/bin/*
 bot_pi/bot_pi_token.py
 db.sqlite3
 
+# Files
 *.pyc
 *.exe
+secret_key.py
